@@ -22,3 +22,35 @@ class GiftCard(models.Model):
     @property
     def formatted_amount(self):
         return '${0:.2f}'.format(self.amount / 100)
+
+
+class ProductPrice(models.Model):
+    """
+    A product pricing schedule.
+    Overrides the standard price for a given product.
+    """
+
+    product = models.ForeignKey(
+        'products.Product',
+        on_delete=models.CASCADE,
+        help_text="Product to apply a scheduled price to",
+    )
+    price = models.PositiveIntegerField(
+        help_text="Scheduled price of product")
+    date_start = models.DateField(
+        help_text="Date this pricing schedule begins")
+    date_end = models.DateField(
+        blank=True, null=True, help_text="Date this pricing schedule ends")
+
+    @property
+    def formatted_price(self):
+        return '${0:.2f}'.format(self.price / 100)
+
+    @property
+    def formatted_date_range(self):
+        if self.date_end:
+            return f"{self.date_start} to {self.date_end}"
+        return f"{self.date_start} onward"
+
+    def __str__(self):
+        return f"{self.product.name}: {self.formatted_price} [{self.formatted_date_range}]"
