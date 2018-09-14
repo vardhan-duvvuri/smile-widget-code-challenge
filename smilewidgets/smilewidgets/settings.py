@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'products.apps.ProductsConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +74,15 @@ WSGI_APPLICATION = 'smilewidgets.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+
+# PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(PROJECT_DIR, 'yourdatabasename.db'),
+#     }
+# }
+
 
 DATABASES = {
     'default': {
@@ -123,3 +133,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+}
